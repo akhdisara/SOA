@@ -24,7 +24,9 @@ import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.ejb.Stateless;
+import stf.facade.HoraireFacadeLocal;
 import str.entity.Reduction;
+import str.facade.ArretFacadeLocal;
 import str.facade.LigneSTRFacadeLocal;
 import str.facade.ReductionFacadeLocal;
 
@@ -35,6 +37,10 @@ import str.facade.ReductionFacadeLocal;
 @WebService(serviceName = "webServiceSTR")
 @Stateless()
 public class WebServicesSTR {
+    @EJB
+    private ArretFacadeLocal arretFacade;
+    @EJB
+    private HoraireFacadeLocal horaireFacade;
     @EJB
     private ReductionFacadeLocal reductionFacade;
     
@@ -192,6 +198,11 @@ public class WebServicesSTR {
     @WebMethod(operationName = "RechercheLigneSTRParIdentifiant")
     public LigneSTR RechercheLigneSTRParIdentifiant(String Identifiant) {     
         return ligneSTRFacade.RechercheLigne(Identifiant);
+    }
+    
+    @WebMethod(operationName = "afficherListeArretsSTR")
+    public List<Arret> afficherListeArretsSTR() {     
+        return arretFacade.afficherListeArrets();
     }
 
 }

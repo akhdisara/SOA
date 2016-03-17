@@ -5,10 +5,13 @@
  */
 package str.facade;
 
+import java.util.Collection;
+import java.util.List;
 import str.entity.Arret;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,4 +31,13 @@ public class ArretFacade extends AbstractFacade<Arret> implements ArretFacadeLoc
         super(Arret.class);
     }
     
+    @Override
+    public List<Arret> afficherListeArrets() {
+        List Ar;
+        String txt = "SELECT Ar FROM Arret AS Ar";
+        Query req = getEntityManager().createQuery(txt);
+        Ar = req.getResultList();
+        return Ar;
+
+    }
 }
