@@ -32,4 +32,5 @@ public interface GareFacadeLocal {
     
     List<Gare> RetournerGares();
     
+    Gare RechercherGareParNom(String nomGare);
 }

@@ -7,9 +7,9 @@ package str.facade;
 
 import str.entity.LigneSTR;
 import str.entity.PositionArretLigne;
-import java.util.Collection;
 import java.util.List;
 import javax.ejb.Local;
+import str.entity.Arret;
 
 /**
  *
@@ -33,5 +33,7 @@ public interface PositionArretLigneFacadeLocal {
     int count();
     
     List<PositionArretLigne> RecherchePositionParLigne(LigneSTR ligne);
+    
+    List<PositionArretLigne> RecherchePositionParArret(Arret arret);
     
 }

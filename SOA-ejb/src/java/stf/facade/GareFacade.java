@@ -8,6 +8,7 @@ package stf.facade;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import stf.entity.Gare;
@@ -18,6 +19,7 @@ import stf.entity.Gare;
  */
 @Stateless
 public class GareFacade extends AbstractFacade<Gare> implements GareFacadeLocal {
+
     @PersistenceContext(unitName = "SOA-ejbPU2")
     private EntityManager em;
 
@@ -29,7 +31,7 @@ public class GareFacade extends AbstractFacade<Gare> implements GareFacadeLocal 
     public GareFacade() {
         super(Gare.class);
     }
-    
+
     @Override
     public List<Gare> RetournerGares() {
         List<Gare> listeG;
@@ -38,5 +40,19 @@ public class GareFacade extends AbstractFacade<Gare> implements GareFacadeLocal 
         Query req = getEntityManager().createQuery(txt);
         listeG = req.getResultList();
         return listeG;
+    }
+
+    @Override
+    public Gare RechercherGareParNom(String nomGare) {
+        try {
+            Gare g;
+            String txt = "SELECT g FROM Gare AS g WHERE g.nomGare=:nomGare";
+            Query req = getEntityManager().createQuery(txt);
+            req = req.setParameter("nomGare", nomGare);
+            g = (Gare) req.getSingleResult();
+            return g;
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 }

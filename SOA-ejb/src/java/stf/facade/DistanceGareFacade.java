@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import stf.entity.DistanceGare;
+import stf.entity.Gare;
 import stf.entity.Ligne;
 
 /**
@@ -40,5 +41,16 @@ public class DistanceGareFacade extends AbstractFacade<DistanceGare> implements 
         listeG = req.getResultList();
         return listeG;
     }
+    
+    @Override
+    public List<DistanceGare> RetournerDistanceGareParGare(Gare laGare) {
+        List<DistanceGare> listeG;
+        String txt = "SELECT g FROM DistanceGare as g WHERE g.laGare=:laGare";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("laGare", laGare);
+        listeG = req.getResultList();
+        return listeG;
+    }
+    
     
 }

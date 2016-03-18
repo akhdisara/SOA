@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import str.entity.Arret;
 
 /**
  *
@@ -36,6 +37,14 @@ public class PositionArretLigneFacade extends AbstractFacade<PositionArretLigne>
         String txt = "SELECT p FROM PositionArretLigne p WHERE p.ligne=:ligne";
         Query req = getEntityManager().createQuery(txt);
         req.setParameter("ligne", ligne);
+        return req.getResultList();
+    }
+    
+    @Override
+    public List<PositionArretLigne> RecherchePositionParArret(Arret arret) {
+        String txt = "SELECT p FROM PositionArretLigne p WHERE p.arret=:arret";
+        Query req = getEntityManager().createQuery(txt);
+        req.setParameter("arret", arret);
         return req.getResultList();
     }
 }

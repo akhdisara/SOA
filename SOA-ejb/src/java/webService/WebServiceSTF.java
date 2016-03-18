@@ -54,6 +54,12 @@ public class WebServiceSTF {
         List<DistanceGare> listReturn = distanceGareFacade.RetournerDistanceGareParLigne(ligne);
         return listReturn;
     }
+    
+    @WebMethod(operationName = "RetournerDistanceGareParGare")
+    public List<DistanceGare> RetournerDistanceGareParGare(@WebParam(name = "gare") Gare gare) {
+        List<DistanceGare> listReturn = distanceGareFacade.RetournerDistanceGareParGare(gare);
+        return listReturn;
+    }
 
     @WebMethod(operationName = "RechercherLigneSTFParId")
     public Ligne RechercherLigneSTFParId(@WebParam(name = "id") Long id) {
@@ -114,5 +120,10 @@ public class WebServiceSTF {
     @WebMethod(operationName = "RechercherLigneSTFParNum")
     public Ligne RechercherLigneSTFParNum(@WebParam(name = "numLigne") int numLigne) {
         return ligneFacade.RechercherLigneParNum(numLigne);
+    }
+    
+    @WebMethod(operationName = "RechercherGareParNom")
+    public Gare RechercherGareParNom(@WebParam(name = "nom") String nom) {
+        return  gareFacade.RechercherGareParNom(nom);
     }
 }

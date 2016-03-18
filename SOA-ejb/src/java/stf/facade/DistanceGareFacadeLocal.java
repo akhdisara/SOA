@@ -8,6 +8,7 @@ package stf.facade;
 import java.util.List;
 import javax.ejb.Local;
 import stf.entity.DistanceGare;
+import stf.entity.Gare;
 import stf.entity.Ligne;
 
 /**
@@ -32,5 +33,7 @@ public interface DistanceGareFacadeLocal {
     int count();
     
     List<DistanceGare> RetournerDistanceGareParLigne(Ligne laLigne);
+    
+    List<DistanceGare> RetournerDistanceGareParGare(Gare laGare);
     
 }

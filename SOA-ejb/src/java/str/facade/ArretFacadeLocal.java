@@ -5,7 +5,6 @@
  */
 package str.facade;
 
-import java.util.Collection;
 import str.entity.Arret;
 import java.util.List;
 import javax.ejb.Local;
@@ -32,4 +31,6 @@ public interface ArretFacadeLocal {
     int count();
     
     List<Arret> afficherListeArrets();
+    
+    Arret RechercheArretParNom(String nom);
 }

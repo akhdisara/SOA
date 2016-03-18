@@ -24,6 +24,7 @@ import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 import stf.facade.HoraireFacadeLocal;
 import str.entity.Reduction;
 import str.facade.ArretFacadeLocal;
@@ -203,6 +204,16 @@ public class WebServicesSTR {
     @WebMethod(operationName = "afficherListeArretsSTR")
     public List<Arret> afficherListeArretsSTR() {     
         return arretFacade.afficherListeArrets();
+    }
+    
+    @WebMethod(operationName = "RecherchePositionSTRParArret")
+    public List<PositionArretLigne> RecherchePositionSTRParArret(@WebParam(name = "arret") Arret arret) {
+        return positionArretLigneFacade.RecherchePositionParArret(arret);
+    }
+    
+    @WebMethod(operationName = "RechercheArretSTRParNom")
+    public Arret RechercheArretSTRParNom(@WebParam(name = "nom") String nom) {
+        return arretFacade.RechercheArretParNom(nom);
     }
 
 }

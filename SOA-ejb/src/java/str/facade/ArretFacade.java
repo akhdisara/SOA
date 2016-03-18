@@ -10,6 +10,7 @@ import java.util.List;
 import str.entity.Arret;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -39,5 +40,17 @@ public class ArretFacade extends AbstractFacade<Arret> implements ArretFacadeLoc
         Ar = req.getResultList();
         return Ar;
 
+    }
+    
+    @Override
+    public Arret RechercheArretParNom(String nom) {
+        try {
+            String txt = "SELECT Ar FROM Arret Ar WHERE Ar.Nom=:nom";
+            Query req = getEntityManager().createQuery(txt);
+            req.setParameter("nom", nom);
+            return (Arret) req.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 }
