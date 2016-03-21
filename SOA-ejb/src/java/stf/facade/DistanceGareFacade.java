@@ -52,5 +52,14 @@ public class DistanceGareFacade extends AbstractFacade<DistanceGare> implements 
         return listeG;
     }
     
+    @Override
+    public double RetournerDistanceLigneGare(Ligne laLigne , Gare laGare) {
+        String txt = "SELECT g.distanceGare FROM DistanceGare as g WHERE g.laGare=:laGare and g.laLigne=:laLigne";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("laGare", laGare);
+        req = req.setParameter("laLigne", laLigne);       
+        return (double) req.getSingleResult();
+    }
+    
     
 }

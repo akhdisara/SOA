@@ -8,9 +8,11 @@ package stf.facade;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import stf.entity.Ligne;
+import str.entity.LigneSTR;
 
 /**
  *
@@ -18,6 +20,7 @@ import stf.entity.Ligne;
  */
 @Stateless
 public class LigneFacade extends AbstractFacade<Ligne> implements LigneFacadeLocal {
+
     @PersistenceContext(unitName = "SOA-ejbPU2")
     private EntityManager em;
 
@@ -29,7 +32,7 @@ public class LigneFacade extends AbstractFacade<Ligne> implements LigneFacadeLoc
     public LigneFacade() {
         super(Ligne.class);
     }
-    
+
     @Override
     public List<Ligne> RetournerLignes() {
         List<Ligne> listeL;
@@ -38,7 +41,7 @@ public class LigneFacade extends AbstractFacade<Ligne> implements LigneFacadeLoc
         listeL = req.getResultList();
         return listeL;
     }
-    
+
     @Override
     public Ligne RechercherLigneParId(long id) {
         Ligne l;
@@ -48,14 +51,18 @@ public class LigneFacade extends AbstractFacade<Ligne> implements LigneFacadeLoc
         l = (Ligne) req.getSingleResult();
         return l;
     }
-    
+
     @Override
     public Ligne RechercherLigneParNum(int numLigne) {
-        Ligne l;
-        String txt = "SELECT l FROM Ligne AS l WHERE l.numLigne=:numLigne";
-        Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("numLigne", numLigne);
-        l = (Ligne) req.getSingleResult();
-        return l;
+        try {
+            Ligne l;
+            String txt = "SELECT l FROM Ligne AS l WHERE l.numLigne=:numLigne";
+            Query req = getEntityManager().createQuery(txt);
+            req = req.setParameter("numLigne", numLigne);
+            l = (Ligne) req.getSingleResult();
+            return l;
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 }

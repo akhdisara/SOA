@@ -126,4 +126,16 @@ public class WebServiceSTF {
     public Gare RechercherGareParNom(@WebParam(name = "nom") String nom) {
         return  gareFacade.RechercherGareParNom(nom);
     }
+    
+    @WebMethod(operationName = "RetournerDistanceLigneGare")
+    public double RetournerDistanceLigneGare(@WebParam(name = "laLigne") Ligne laLigne,@WebParam(name = "laGare") Gare laGare) {
+       if(laLigne.getGareArrivee().getNomGare().equals(laGare.getNomGare()))
+            return  distanceGareFacade.RetournerDistanceLigneGare(laLigne,laGare);
+       else
+       {
+           double d1 = distanceGareFacade.RetournerDistanceLigneGare(laLigne,laLigne.getGareArrivee());
+           double d2 = distanceGareFacade.RetournerDistanceLigneGare(laLigne,laGare);
+           return d1 - d2;      
+       }
+    }
 }

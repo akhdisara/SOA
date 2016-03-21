@@ -36,4 +36,5 @@ public interface DistanceGareFacadeLocal {
     
     List<DistanceGare> RetournerDistanceGareParGare(Gare laGare);
     
+    double RetournerDistanceLigneGare(Ligne laLigne , Gare laGare);
 }
